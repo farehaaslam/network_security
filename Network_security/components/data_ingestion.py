@@ -1,15 +1,13 @@
 import os
 import sys
-from dataclasses import dataclass
-
 import pymongo
 from Network_security.logging.logger import logging
 from Network_security.entity.config_entity import DataIngestionConfig
 from Network_security.exceptions.exception import NetworkSecurityException
+from Network_security.entity.artifact_entity import DataIngestionArtifact
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from typing import List
 from dotenv import load_dotenv
 load_dotenv()
 uri=os.getenv("MONGO_DB_URI")
@@ -72,8 +70,12 @@ class DataIngestion:
             df=self.read_data_from_database()
             df=self.export_data_to_feature_store(df)
             self.split_data(df)
+            data_ingestion_artifact=DataIngestionArtifact(
+                trained_file_path=os.path.join(self.data_ingestion_config.ingested_dir, self.data_ingestion_config.train_file_name),
+                test_file_path=os.path.join(self.data_ingestion_config.ingested_dir, self.data_ingestion_config.test_file_name)
+            )
 
-            
+            return data_ingestion_artifact
 
         except Exception as e:
             raise NetworkSecurityException(e,sys)          

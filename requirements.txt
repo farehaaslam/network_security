@@ -6,5 +6,7 @@ pymongo
 pymongo[srv]==3.12
 openpyxl
 scikit-learn
+dill
+pyaml
 
 ##-e .
