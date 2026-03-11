@@ -113,7 +113,8 @@ class DataValidation:
                 drift_report_file_path=self.data_validation_config.drift_report_file_path,
                     invalid_train_file_path=None,
                     invalid_test_file_path=None
-            )  
+            )
+            logging.info(f"Data validation artifact: {data_validation_artifact}")  
             return data_validation_artifact         
         
 

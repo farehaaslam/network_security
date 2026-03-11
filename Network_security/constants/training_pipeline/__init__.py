@@ -1,5 +1,6 @@
 import os
 import sys
+import numpy as np
 
 """
 training pipeline related COMMON constants 
@@ -33,4 +34,17 @@ DATA_VALIDATION_INVALID_DIR="invalid"
 DATA_VALIDATION_DRIFT_REPORT_DIR="drift_report"
 DATA_VALIDATION_DRIFT_REPORT_FILE_NAME="report.yaml"
 
+"""
+data transformation related constant
+"""
+DATA_TRANSFORMATION_DIR_NAME="data_transformation"
+DATA_TRANSFORMATION_TRANSFORMED_DATA_DIR_NAME="transformed_data"
+DATA_TRANSFORMATION_TRANSFORMED_OBJECT_DIR_NAME="transformed_object"
+
+### knn imputer related constant
+DATA_TRANSFORMATION_IMPUTER_PARAMS={
+    "n_neighbors":3,
+    "weights":"uniform",
+    "missing_values":np.nan
+    }
 
