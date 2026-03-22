@@ -14,6 +14,9 @@ TRAIN_FILE_NAME:str="train.csv"
 
 SCHEMA_FILE_PATH=os.path.join("data_schema","schema.yaml")
 
+SAVED_MODEL_DIR:str=os.path.join("saved_models")
+MODEL_FILE_NAME:str="model.pkl"
+
 """
 data ingestion related constants 
 """
@@ -47,4 +50,13 @@ DATA_TRANSFORMATION_IMPUTER_PARAMS={
     "weights":"uniform",
     "missing_values":np.nan
     }
+PREPROCESSING_OBJECT_FILE_NAME: str = "preprocessing.pkl"    
 
+"""
+model trainer related constant
+"""
+MODEL_TRAINER_DIR_NAME="model_trainer"
+MODEL_TRAINER_TRAINED_MODEL_DIR_NAME="trained_model"
+MODEL_FILE_NAME="model.pkl"
+MODEL_TRAINER_EXPECTED_SCORE: float = 0.6
+MODEL_TRAINER_OVER_FIITING_UNDER_FITTING_THRESHOLD:float=0.05

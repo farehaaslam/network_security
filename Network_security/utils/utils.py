@@ -1,9 +1,9 @@
+from sklearn.metrics import accuracy_score
 import yaml
 from Network_security.exceptions.exception import NetworkSecurityException
 from Network_security.logging.logger import logging
+from sklearn.model_selection import GridSearchCV
 import os,sys
-import numpy 
-import dill
 import pickle
 import pandas as pd
 import numpy as np
@@ -52,3 +52,47 @@ def save_object(filepath:str,obj:object):
         logging.info("preprocessor file saved succesfully")   
     except Exception as e:
         raise NetworkSecurityException(e,sys)
+    
+def load_object(filepath:str)->object:
+    try:
+        if not os.path.exists(filepath):
+            raise Exception(f"file not found at {filepath}")    
+        with open(filepath,"rb") as file:
+            return pickle.load(file)
+    except Exception as e:
+        raise NetworkSecurityException(e,sys)
+    
+def load_numpy_array(filepath:str)->np.array:
+    try:
+        if not os.path.exists(filepath):
+            raise Exception(f"file not found at {filepath}")    
+        with open(filepath,"rb") as file:
+            return np.load(file)
+    except Exception as e:
+        raise NetworkSecurityException(e,sys)    
+    
+def evaluate_model(x_train,y_train,x_test,y_test,models,params:dict)->dict:
+    try:
+        # grid_search=GridSearchCV(estimator=models,param_grid=params,scoring="accuracy",n_jobs=-1)
+        # grid_search.fit(x_train,y_train)
+        report={}
+        logging.info("model evaluation started")
+        for model_name,model in models.items():
+            logging.info(f"evaluating {model_name}")
+            gs=GridSearchCV(model,params[model_name],cv=5,n_jobs=-1)
+            gs.fit(x_train,y_train)
+            model.set_params(**gs.best_params_)
+            model.fit(x_train,y_train)
+            y_train_pred=model.predict(x_train)
+            y_test_pred=model.predict(x_test)
+            train_model_score=accuracy_score(y_train,y_train_pred)
+            test_model_score=accuracy_score(y_test,y_test_pred)
+            report[model_name]={
+                "train_score":train_model_score,
+                "test_score":test_model_score
+            }
+        return report    
+
+
+    except Exception as e:
+        NetworkSecurityException(e,sys)    

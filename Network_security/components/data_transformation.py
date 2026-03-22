@@ -5,7 +5,7 @@ from Network_security.entity.artifact_entity import DataTransformationArtifact,D
 from Network_security.constants.training_pipeline import TARGET_COLUMN,DATA_TRANSFORMATION_IMPUTER_PARAMS
 from Network_security.utils.utils import save_numpy_array,save_object,read_data
 
-import os,sys
+import sys
 import numpy as np
 import pandas as pd
 from sklearn.impute import KNNImputer
