@@ -8,5 +8,5 @@ openpyxl
 scikit-learn
 dill
 pyaml
-
+mlflow
 ##-e .

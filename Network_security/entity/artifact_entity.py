@@ -24,7 +24,7 @@ class DataTransformationArtifact:
 @dataclass
 class ModelEvaluationArtifact:
     f1_score:float
-    precission_score:float
+    precision_score:float
     recall_score:float   
 
 @dataclass

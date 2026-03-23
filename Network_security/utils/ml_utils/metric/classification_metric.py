@@ -9,7 +9,11 @@ def get_classification_score(y_true,y_pred)->ModelEvaluationArtifact:
         accuracy_score_value=accuracy_score(y_true,y_pred)
         precision_score_value=precision_score(y_true,y_pred)
         recall_score_value=recall_score(y_true,y_pred)
-        model_evaluation_artifact=f1_score_value,accuracy_score_value,precision_score_value,recall_score_value
+        model_evaluation_artifact=ModelEvaluationArtifact(
+            f1_score=f1_score_value,
+            precision_score=precision_score_value,
+            recall_score=recall_score_value
+        )
         return model_evaluation_artifact
     except Exception as e:
         raise NetworkSecurityException(e,sys)

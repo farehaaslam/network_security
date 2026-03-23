@@ -9,6 +9,7 @@ from Network_security.utils.ml_utils.model.estimator import NetworkModel
 from sklearn.ensemble import RandomForestClassifier,GradientBoostingClassifier,AdaBoostClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
+import mlflow
 
 import sys
 
@@ -22,6 +23,17 @@ class ModelTrainer:
         except Exception as e:
             raise NetworkSecurityException(e,sys)
 
+    def track_mlflow(self,best_model,classifactionMetrics,split):
+        try:
+            mlflow.set_tracking_uri("http://localhost:5000")
+            with mlflow.start_run():
+                mlflow.log_metric("f1_score", classifactionMetrics.f1_score)
+                mlflow.log_metric("precision_score", classifactionMetrics.precision_score)
+                mlflow.log_metric("recall_score", classifactionMetrics.recall_score)
+                if split == "test":
+                    mlflow.sklearn.log_model(best_model, "model")
+        except Exception as e:
+            raise NetworkSecurityException(e,sys)
     def train_model(self,x_train,y_train,x_test,y_test):
         logging.info("training the model")
         try:
@@ -50,8 +62,8 @@ class ModelTrainer:
                     # 'learning_rate':[0.01,0.1]
                 },
                 "Logistic Regression":{
-                    # 'C':[0.01,0.1,1],
-                    # 'penalty':['l2']
+                     'C':[0.01,0.1,1],
+                      'max_iter':[100,200]
                 },
                 "Decision Tree":{
                     'max_depth':[None,10,20],
@@ -69,13 +81,19 @@ class ModelTrainer:
                 raise Exception(f"no best model found with score greater than {MODEL_TRAINER_EXPECTED_SCORE}")
             logging.info(f"best model found {best_model_name} with score {best_model_score}")
             best_model=models[best_model_name]
+            best_model.fit(x_train,y_train)
             y_train_pred=best_model.predict(x_train)
             y_test_pred=best_model.predict(x_test)
-            classification_train_score=get_classification_score(y_true=y_train,y_pred=y_train_pred)
-            classification_test_score=get_classification_score(y_true=y_test,y_pred=y_test_pred)
-            save_object(filepath=self.model_trainer_config.trained_model_file_path,obj=best_model)
-            preprocessor=load_object(filepath=self.data_transformation_artifact.transformed_object_file_path)
-            NetworkModel(preprocessor=preprocessor,model=best_model)
+            classification_train_score = get_classification_score(y_true=y_train, y_pred=y_train_pred)
+            print("FIELDS:", vars(classification_train_score))
+            self.track_mlflow(best_model=best_model, classifactionMetrics=classification_train_score, split="train") 
+
+            classification_test_score = get_classification_score(y_true=y_test, y_pred=y_test_pred)
+            self.track_mlflow(best_model=best_model, classifactionMetrics=classification_test_score, split="test")  
+
+            preprocessor = load_object(filepath=self.data_transformation_artifact.transformed_object_file_path)
+            network_model = NetworkModel(preprocessor=preprocessor, model=best_model)
+            save_object(filepath=self.model_trainer_config.trained_model_file_path, obj=network_model)
             logging.info(f"best model saved at {self.model_trainer_config.trained_model_file_path}")
             modelTrainerArtifact=ModelTrainerArtifact(trained_model_file_path=self.model_trainer_config.trained_model_file_path,trained_metrics=classification_train_score,test_metrics=classification_test_score)
             logging.info(f"model trainer artifact: {modelTrainerArtifact}")
