@@ -1,3 +1,5 @@
+import os
+
 from Network_security.exceptions.exception import NetworkSecurityException
 from Network_security.logging.logger import logging
 from Network_security.entity.config_entity import DataTransformationConfig
@@ -62,7 +64,11 @@ class DatatTransformation:
             save_numpy_array(filepath=self.data_transformation_config.transformed_test_file_path,arr=test_arr)
             save_object(filepath=self.data_transformation_config.transformed_object_path,obj=prepocessor)
             logging.info(f"saved the preprocessor object")
-
+            os.makedirs("final_model", exist_ok=True)
+            save_object(
+            filepath=os.path.join("final_model", "preprocessing.pkl"),
+            obj=prepocessor
+            )
             data_transformation_artifact=DataTransformationArtifact(
                 transformed_train_file_path=self.data_transformation_config.transformed_train_file_path,
                 transformed_test_file_path=self.data_transformation_config.transformed_test_file_path,

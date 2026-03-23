@@ -1,3 +1,5 @@
+import os
+
 from Network_security.exceptions.exception import NetworkSecurityException
 from Network_security.logging.logger import logging
 from Network_security.entity.config_entity import ModelTrainerConfig    
@@ -95,7 +97,10 @@ class ModelTrainer:
 
             preprocessor = load_object(filepath=self.data_transformation_artifact.transformed_object_file_path)
             network_model = NetworkModel(preprocessor=preprocessor, model=best_model)
-            save_object(filepath=self.model_trainer_config.trained_model_file_path, obj=network_model)
+            save_object(
+            filepath=os.path.join("final_model", "model.pkl"),
+            obj=best_model
+            )            
             logging.info(f"best model saved at {self.model_trainer_config.trained_model_file_path}")
             modelTrainerArtifact=ModelTrainerArtifact(trained_model_file_path=self.model_trainer_config.trained_model_file_path,trained_metrics=classification_train_score,test_metrics=classification_test_score)
             logging.info(f"model trainer artifact: {modelTrainerArtifact}")
