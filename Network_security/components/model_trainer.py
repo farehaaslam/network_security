@@ -9,6 +9,8 @@ from Network_security.utils.ml_utils.model.estimator import NetworkModel
 from sklearn.ensemble import RandomForestClassifier,GradientBoostingClassifier,AdaBoostClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
+import dagshub
+dagshub.init(repo_owner='farehaaslam', repo_name='network_security', mlflow=True)
 import mlflow
 
 import sys
@@ -25,7 +27,7 @@ class ModelTrainer:
 
     def track_mlflow(self,best_model,classifactionMetrics,split):
         try:
-            mlflow.set_tracking_uri("http://localhost:5000")
+            # mlflow.set_tracking_uri("http://localhost:5000")
             with mlflow.start_run():
                 mlflow.log_metric("f1_score", classifactionMetrics.f1_score)
                 mlflow.log_metric("precision_score", classifactionMetrics.precision_score)

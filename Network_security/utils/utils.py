@@ -7,6 +7,7 @@ import os,sys
 import pickle
 import pandas as pd
 import numpy as np
+import mlflow
 
 def read_yaml_file(file_path)->dict:
     try:
@@ -73,10 +74,9 @@ def load_numpy_array(filepath:str)->np.array:
     
 def evaluate_model(x_train,y_train,x_test,y_test,models,params:dict)->dict:
     try:
-        # grid_search=GridSearchCV(estimator=models,param_grid=params,scoring="accuracy",n_jobs=-1)
-        # grid_search.fit(x_train,y_train)
         report={}
         logging.info("model evaluation started")
+
         for model_name,model in models.items():
             logging.info(f"evaluating {model_name}")
             gs=GridSearchCV(model,params[model_name],cv=5,n_jobs=-1)
