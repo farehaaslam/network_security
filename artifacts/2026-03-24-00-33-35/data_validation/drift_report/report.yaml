@@ -1,0 +1,112 @@
+Abnormal_URL:
+  drift_detected: &id001 !!python/object/apply:numpy._core.multiarray.scalar
+  - !!python/object/apply:numpy.dtype
+    args:
+    - b1
+    - false
+    - true
+    state: !!python/tuple
+    - 3
+    - '|'
+    - null
+    - null
+    - null
+    - -1
+    - -1
+    - 0
+  - !!binary |
+    AA==
+  p_value: 0.9999999999999148
+DNSRecord:
+  drift_detected: *id001
+  p_value: 1.0
+Domain_registeration_length:
+  drift_detected: *id001
+  p_value: 1.0
+Favicon:
+  drift_detected: *id001
+  p_value: 0.6453138528352869
+Google_Index:
+  drift_detected: *id001
+  p_value: 0.9999999999999148
+HTTPS_token:
+  drift_detected: *id001
+  p_value: 0.9636514116065256
+Iframe:
+  drift_detected: *id001
+  p_value: 0.983957834281781
+Links_in_tags:
+  drift_detected: *id001
+  p_value: 0.9813203340096497
+Links_pointing_to_page:
+  drift_detected: *id001
+  p_value: 0.9999999999999994
+Page_Rank:
+  drift_detected: *id001
+  p_value: 0.9987482621359624
+Prefix_Suffix:
+  drift_detected: *id001
+  p_value: 0.9999994872658009
+Redirect:
+  drift_detected: *id001
+  p_value: 0.9975567739681747
+Request_URL:
+  drift_detected: *id001
+  p_value: 1.0
+Result:
+  drift_detected: *id001
+  p_value: 0.9999999999952338
+RightClick:
+  drift_detected: *id001
+  p_value: 0.9999999999999994
+SFH:
+  drift_detected: *id001
+  p_value: 0.9972361772209787
+SSLfinal_State:
+  drift_detected: *id001
+  p_value: 0.9863226193637479
+Shortining_Service:
+  drift_detected: *id001
+  p_value: 0.9543441210495801
+Statistical_report:
+  drift_detected: *id001
+  p_value: 0.8756389105267057
+Submitting_to_email:
+  drift_detected: *id001
+  p_value: 0.7131044860207287
+URL_Length:
+  drift_detected: *id001
+  p_value: 1.0
+URL_of_Anchor:
+  drift_detected: *id001
+  p_value: 0.9999999095448506
+age_of_domain:
+  drift_detected: *id001
+  p_value: 0.9997115090643619
+double_slash_redirecting:
+  drift_detected: *id001
+  p_value: 0.9997610012014628
+having_At_Symbol:
+  drift_detected: *id001
+  p_value: 0.8756389105267057
+having_IP_Address:
+  drift_detected: *id001
+  p_value: 1.0
+having_Sub_Domain:
+  drift_detected: *id001
+  p_value: 0.9981098952009998
+index:
+  drift_detected: *id001
+  p_value: 0.39647878775768586
+on_mouseover:
+  drift_detected: *id001
+  p_value: 0.6962629071754478
+popUpWidnow:
+  drift_detected: *id001
+  p_value: 0.39647878775768586
+port:
+  drift_detected: *id001
+  p_value: 0.8248120106846878
+web_traffic:
+  drift_detected: *id001
+  p_value: 0.8440980157021072
