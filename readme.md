@@ -1,6 +1,6 @@
 # 🔐 Network Security — Phishing Website Detection System
 
-A production-ready end-to-end machine learning system for detecting phishing websites. The project classifies websites as **legitimate** or **phishing** based on 31 URL and website-behaviour features, and exposes predictions through a REST API backed by an automated training pipeline, MLflow experiment tracking, and AWS CI/CD deployment.
+A production-ready end-to-end machine learning system for detecting phishing websites. The project classifies websites as **legitimate** or **phishing** based on 31 URL and website-behaviour features, and exposes predictions through a REST API backed by an automated training pipeline, MLflow experiment tracking,  AWS CI/CD deployment and scheduled training runs.
 
 ---
 
@@ -40,6 +40,7 @@ The system follows a modular, production-grade architecture:
 5. All experiments are logged to **MLflow** (via DagsHub).
 6. The trained model is served through a **FastAPI** application and optionally stored on **AWS S3**.
 7. A **GitHub Actions** workflow automatically builds, pushes, and deploys the containerised app to **AWS ECR / EC2**.
+8. scheduled training runs are set up via GitHub Actions cron jobs to ensure the model stays up-to-date with new data.
 
 ---
 
@@ -57,6 +58,8 @@ The system follows a modular, production-grade architecture:
 - ✅ **Cloud Storage** — AWS S3 artifact sync  
 - ✅ **Structured Logging** — timestamped log files for every run  
 - ✅ **Custom Exception Handling** — file-name and line-number aware errors  
+- ✅ **Cron Job** — scheduled weekly training runs via GitHub Actions
+
 
 ---
 
