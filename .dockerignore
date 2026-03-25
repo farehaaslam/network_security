@@ -1,0 +1,15 @@
+# .dockerignore
+.git
+.github
+__pycache__
+*.pyc
+*.pyo
+.venv
+venv
+mlruns/
+artifacts/
+*.log
+.env
+README.md
+notebooks/
+tests/
