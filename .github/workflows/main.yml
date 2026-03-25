@@ -5,6 +5,10 @@ on:
             - main
         paths-ignore:
             - 'README.md'
+    schedule:
+        - cron: '0 0 * * 0'
+    workflow_dispatch:
+                  
 jobs:
     integration:
         name: continous integration
